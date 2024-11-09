@@ -1,0 +1,24 @@
+FROM alpine:3.19
+
+ARG DB_NAME \
+    DB_ROOT_PASSWORD \
+    DB_USER \
+    DB_PASSWORD
+    
+COPY ./tools/excute_db.sh /excute_db.sh
+COPY ./tools/inception_db.cnf /etc/my.cnf.d/inception_db.cnf
+    
+RUN apk update && apk upgrade && \
+    apk add --no-cache mariadb mariadb-client && \
+    mkdir -p /var/lib/mysql /run/mysqld && \
+    chmod 755 /var/lib/mysql /run/mysqld && \
+    chmod 644 /etc/my.cnf.d/inception_db.cnf && \
+    chown -R mysql:mysql /run/mysqld && \
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+RUN chmod +x /excute_db.sh && \
+    ./excute_db.sh
+
+USER mysql
+
+CMD [ "/usr/bin/mysqld", "--user=mysql", "--skip-log-error" ]
