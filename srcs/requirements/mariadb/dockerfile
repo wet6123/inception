@@ -6,7 +6,7 @@ ARG DB_NAME \
     DB_PASSWORD
     
 COPY ./tools/make_create_db_sql.sh /make_create_db_sql.sh
-COPY ./tools/inception_db.cnf /etc/my.cnf
+COPY ./conf/inception_db.cnf /etc/my.cnf
     
 RUN apk update && apk upgrade && \
     apk add --no-cache mariadb mariadb-client && \
@@ -16,9 +16,9 @@ RUN apk update && apk upgrade && \
     chown -R mysql:mysql /run/mysqld && \
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-RUN chmod +x /make_create_db_sql.sh && \
-    ./make_create_db_sql.sh && \
-    rm -rf /make_create_db_sql.sh
+RUN chmod +x make_create_db_sql.sh && \
+    bin/sh  make_create_db_sql.sh && \
+    rm -rf make_create_db_sql.sh
 
 USER mysql
 

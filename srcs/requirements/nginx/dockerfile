@@ -1,0 +1,23 @@
+FROM alpine:3.19
+
+COPY /conf/nginx.conf /etc/nginx/nginx.conf
+COPY /tools/set_hosts.sh set_hosts.sh
+
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache nginx && \
+    mkdir -p /var/www/html /var/run/nginx && \
+    chmod -R 755 /var/www/html && \
+	chown -R nginx:nginx /var/www/html /var/run/nginx
+
+RUN apk add --no-cache openssl && \
+    mkdir -p /etc/nginx/ssl && \
+    openssl req -x509 -nodes -days 365 \
+                -newkey rsa:2048 \
+                -keyout /etc/nginx/ssl/junsbae.42.fr.key \
+                -out /etc/nginx/ssl/junsbae.42.fr.crt \
+                -subj "/C=KR/ST=서울/L=서울/O=42Seoul/OU=IT/CN=junsbae.42.fr" && \
+    chmod 600 /etc/nginx/ssl/junsbae.42.fr.key /etc/nginx/ssl/junsbae.42.fr.crt && \
+    chown nginx:nginx /etc/nginx/ssl/junsbae.42.fr.key /etc/nginx/ssl/junsbae.42.fr.crt
+
+CMD [ "nginx", "-g", "daemon off;" ]

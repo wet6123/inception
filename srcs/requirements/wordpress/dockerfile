@@ -15,12 +15,12 @@ ARG WP_DB_NAME \
     WP_USER_EMAIL
 
 # add user
-RUN addgroup -S wordpress && adduser -G wordpress -S wordpress -H && \
+RUN addgroup -S wordpress && adduser -G wordpress -S wordpress -H -s /sbin/nologin wordpress && \
     addgroup -S nginx && adduser -G nginx -S nginx
 
 COPY ./tools/wp_config_create.sh /tmp/wp_config_create.sh
 COPY ./tools/wp_entry.sh /tmp/wp_entry.sh
-COPY ./tools/wordpress.conf /etc/php82/php-fpm.d/www.conf
+COPY ./conf/wordpress.conf /etc/php82/php-fpm.d/www.conf
 
 # install
 RUN apk update && apk upgrade && \
@@ -43,7 +43,6 @@ RUN apk update && apk upgrade && \
     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
-
 
 WORKDIR /var/www/html
 
