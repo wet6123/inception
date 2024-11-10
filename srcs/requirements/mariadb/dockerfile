@@ -5,19 +5,20 @@ ARG DB_NAME \
     DB_USER \
     DB_PASSWORD
     
-COPY ./tools/excute_db.sh /excute_db.sh
-COPY ./tools/inception_db.cnf /etc/my.cnf.d/inception_db.cnf
+COPY ./tools/make_create_db_sql.sh /make_create_db_sql.sh
+COPY ./tools/inception_db.cnf /etc/my.cnf
     
 RUN apk update && apk upgrade && \
     apk add --no-cache mariadb mariadb-client && \
     mkdir -p /var/lib/mysql /run/mysqld && \
     chmod 755 /var/lib/mysql /run/mysqld && \
-    chmod 644 /etc/my.cnf.d/inception_db.cnf && \
+    chmod 644 /etc/my.cnf && \
     chown -R mysql:mysql /run/mysqld && \
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-RUN chmod +x /excute_db.sh && \
-    ./excute_db.sh
+RUN chmod +x /make_create_db_sql.sh && \
+    ./make_create_db_sql.sh && \
+    rm -rf /make_create_db_sql.sh
 
 USER mysql
 

@@ -2,7 +2,8 @@
 
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
-        cat << EOF > /tmp/create_db.sql
+cat << EOF > /tmp/create_db.sql
+
 USE mysql;
 FLUSH PRIVILEGES;
 DROP DATABASE IF EXISTS test;
@@ -15,5 +16,7 @@ CREATE USER '${DB_USER}'@'%' IDENTIFIED by '${DB_PASSWORD}';
 GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
-        /usr/bin/mysqld --bootstrap < /tmp/create_db.sql
+
+/usr/bin/mysqld --bootstrap < /tmp/create_db.sql
+
 fi
