@@ -46,8 +46,6 @@ RUN apk update && apk upgrade && \
 
 WORKDIR /var/www/html
 
-# RUN rm -rf index.html
-
 RUN chmod 755 /tmp/wp_config_create.sh && \
     chmod 755 /tmp/wp_entry.sh && \
     /bin/sh /tmp/wp_config_create.sh && \
