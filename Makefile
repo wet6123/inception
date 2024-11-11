@@ -7,10 +7,10 @@ re: clean
 				@sudo -E docker compose -f ./${SRCS}/docker-compose.yml up -d
 
 clean: down
-				@sudo -E docker image ls | grep '${SRCS}-' | awk '{print $$1}' | xargs docker image rm
+				@sudo -E docker images -q | xargs sudo -E docker rmi
 
 fclean: down
-				@sudo -E docker image ls | grep '${SRCS}-' | awk '{print $$1}' | xargs docker image rm
+				@sudo -E docker images -q | xargs sudo -E docker rmi
 				@sudo -E docker network prune --force
 				@sudo -E docker volume prune --force
 				@sudo -E docker system prune --all --force
