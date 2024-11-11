@@ -14,7 +14,7 @@ fclean: down
 				@sudo -E docker network prune --force
 				@sudo -E docker volume prune --force
 				@sudo -E docker system prune --all --force
-				@bash ${SRCS}/requirements/tools/make_dir.sh --delete
+				@sudo -E bash ${SRCS}/requirements/tools/make_dir.sh --delete
 
 dir:
 				@bash ${SRCS}/requirements/tools/make_dir.sh
