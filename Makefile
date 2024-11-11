@@ -1,7 +1,7 @@
 SRCS = srcs
 
 all: dir
-				@docker compose -f ./${SRCS}/docker-compose.yml up -d
+				@docker compose -f ./${SRCS}/docker-compose.yml up --build -d
 
 re: clean
 				@docker compose -f ./${SRCS}/docker-compose.yml up -d
@@ -16,11 +16,10 @@ fclean: down
 				@docker system prune --all --force
 				@bash ${SRCS}/requirements/tools/make_dir.sh --delete
 
-build: dir
-				@docker compose -f ./${SRCS}/docker-compose.yml up --build -d
-
 dir:
 				@bash ${SRCS}/requirements/tools/make_dir.sh
 
 down:
 				@docker compose -f ./${SRCS}/docker-compose.yml down -v
+
+.phony: all re clean fclean build dir down

@@ -49,6 +49,7 @@ services:
     container_name: wordpress
     image: wordpress
     restart: always
+    init: true
     depends_on:
       - mariadb
     build:
@@ -79,6 +80,7 @@ services:
     container_name: nginx
     image: nginx
     restart: always
+    init: true
     depends_on:
       - wordpress
     build:
