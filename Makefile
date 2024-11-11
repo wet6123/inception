@@ -16,6 +16,9 @@ fclean: down
 				@docker system prune --all --force
 				@bash ${SRCS}/requirements/tools/make_dir.sh --delete
 
+build: dir
+				@docker compose -f ./${SRCS}/docker-compose.yml up --build -d
+
 dir:
 				@bash ${SRCS}/requirements/tools/make_dir.sh
 
