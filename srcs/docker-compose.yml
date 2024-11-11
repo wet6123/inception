@@ -25,6 +25,7 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
+    image: mariadb
     # 구동 실패 시 재시도
     restart: always
     init: true
@@ -46,6 +47,7 @@ services:
 
   wordpress:
     container_name: wordpress
+    image: wordpress
     restart: always
     depends_on:
       - mariadb
@@ -75,6 +77,7 @@ services:
 
   nginx:
     container_name: nginx
+    image: nginx
     restart: always
     depends_on:
       - wordpress
