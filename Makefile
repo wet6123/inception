@@ -14,10 +14,10 @@ fclean: down
 				@sudo -E docker network prune --force
 				@sudo -E docker volume prune --force
 				@sudo -E docker system prune --all --force
-				@sudo -E bash ${SRCS}/requirements/tools/make_dir.sh --delete
+				@bash ${SRCS}/requirements/tools/make_dir.sh --delete
 
 dir:
-				@sudo -E bash ${SRCS}/requirements/tools/make_dir.sh
+				@bash ${SRCS}/requirements/tools/make_dir.sh
 
 down:
 				@sudo -E docker compose -f ./${SRCS}/docker-compose.yml down -v
