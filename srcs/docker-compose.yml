@@ -26,6 +26,7 @@ services:
   mariadb:
     container_name: mariadb
     image: mariadb
+    pull_policy: never
     # 구동 실패 시 재시도
     restart: always
     init: true
@@ -48,6 +49,7 @@ services:
   wordpress:
     container_name: wordpress
     image: wordpress
+    pull_policy: never
     restart: always
     init: true
     depends_on:
@@ -79,6 +81,7 @@ services:
   nginx:
     container_name: nginx
     image: nginx
+    pull_policy: never
     restart: always
     init: true
     depends_on:

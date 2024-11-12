@@ -1,7 +1,7 @@
 SRCS = srcs
 
 all: dir
-				@sudo -E docker compose -f ./${SRCS}/docker-compose.yml up --build -d
+				@sudo -E docker compose -f ./${SRCS}/docker-compose.yml up -d
 
 re: clean
 				@sudo -E docker compose -f ./${SRCS}/docker-compose.yml up -d
