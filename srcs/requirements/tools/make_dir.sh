@@ -29,6 +29,6 @@ fi
 
 if [ "$1" == "--delete" ]; then
     echo "Delete Directories..."
-    rm -rf $BASE_DIR
+    sudo -E rm -rf $BASE_DIR
     echo "DELETE DIR COMPLETE!!!"
 fi
